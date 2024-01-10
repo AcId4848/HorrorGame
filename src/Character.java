@@ -7,6 +7,6 @@ public class Character {
       fear_level = 50;
       hp = 100;
       bonus = 0;
-    this.name = name;
+      this.name = name;
   }
 }
