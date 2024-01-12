@@ -1,8 +1,11 @@
+import java.io.IOException;
 import java.util.Scanner;
 
 public class HorrorGame {
+    public static String variant = " ";
     public static Character visitor;
     public static Story story;
+    public static int variant_int;
 
     public static void main(String[] args) {
         Scanner in = new Scanner(System.in);
@@ -26,7 +29,34 @@ public class HorrorGame {
                         .println("====================the end!===================");
                 return;
             }
-            story.go(in.nextInt());
+            while (true) {
+                try {
+                    variant = in.nextLine();
+
+                    if (!isNumeric(variant)) {
+                        throw new IllegalArgumentException("Введено не число\n");
+                    }
+                    variant_int = Integer.parseInt(variant);
+
+                    if (variant_int < 1 || variant_int > 3) {
+                        throw new IllegalArgumentException("Число должно быть от 1 до 3 включительно\n");
+                    }
+                    break;
+                } catch (IllegalArgumentException e) {
+                    System.out.println(e.getMessage());
+                }
+            }
+            story.go(variant_int);
+            System.out.println("Некорректный ввод, введите число от 1 до 3:");
         }
     }
+    private static boolean isNumeric(String variant) {
+        for (char c : variant.toCharArray()) {
+            if (!java.lang.Character.isDigit(c)) {
+                return false;
+            }
+        }
+        return true;
+    }
+
 }
